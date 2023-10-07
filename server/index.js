@@ -41,7 +41,7 @@ const PORT = process.env.PORT || 5000;
 const server = app.listen(PORT, "0.0.0.0", () => {
   const address = server.address();
   if (address) {
-    console.log("Server is running on : ", $(PORT));
+    console.log("Server is running on : ", (PORT));
   } else {
     console.error("Failed to get server address....");
   }
