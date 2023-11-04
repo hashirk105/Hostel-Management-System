@@ -1,0 +1,36 @@
+version: "3"
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "80:3000"
+    container_name: hostel-management-frontend
+    networks:
+      - mern-stack-net
+    volumes:
+      - ./frontend/src:/usr/app/src
+      - ./frontend/public:/usr/app/public
+    depends_on:
+      - backend
+    stdin_open: true
+    tty: true
+
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    container_name: hostel-management-backend
+    networks:
+      - mern-stack-net
+    volumes:
+      - ./server:/usr/app
+    environment:
+      - MONGO_CONNECTION_STRING=mongodb+srv://hashir:hashir@cluster0.bozsh1a.mongodb.net/?retryWrites=true&w=majority&appName=AtlasApp
+
+networks:
+  mern-stack-net:
+    driver: bridge
